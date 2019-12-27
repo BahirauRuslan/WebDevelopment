@@ -27,7 +27,7 @@ namespace Lab5
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var con = "Server=(localdb)\\mssqllocaldb;Database=usersdbstore;Trusted_Connection=True;";
+            var con = "Data Source=localhost,1433;Database=lab5;User Id=SA;Password=yourStrong(!)Password;Trusted_Connection=False;";
             
             services.AddDbContext<PhonesContext>(options => options.UseSqlServer(con));
 
