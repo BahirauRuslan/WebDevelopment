@@ -4,8 +4,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <title>Phones List</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/css/bootstrap.min.css" rel="stylesheet" />
-    <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+    <link href="custom.css" rel="stylesheet" />
+    <link href="bootstrap.css" rel="stylesheet" />
+    <script src="jQuery.js"></script>
 </head>
 <body>
     <h2>Phones List</h2>
@@ -33,9 +34,7 @@
         <tbody>
         </tbody>
     </table>
-    <div>Lab #5</div>
     <script>
-        // Получение всех пользователей
         function GetPhones() {
             $.ajax({
                 url: '/api/Phones',
@@ -43,15 +42,14 @@
                 contentType: "application/json",
                 success: function (phones) {
                     var rows = "";
-                    $.each(phones, function (index, phone) {
-                        // добавляем полученные элементы в таблицу
+                    $.each(phones, function (index, phone) {                   
                         rows += row(phone);
                     })
                     $("table tbody").append(rows);
                  }
             });
         }
-        // Получение одного пользователя
+
         function GetPhone(id) {
             $.ajax({
                 url: '/api/Phones/'+id,
@@ -66,7 +64,7 @@
                 }
             });
         }
-        // Добавление пользователя
+        
         function CreatePhone(phoneName, phoneBrend, phonePrice) {
             $.ajax({
                 url: "api/Phones",
@@ -84,7 +82,7 @@
                 }
             })
         }
-        // Изменение пользователя
+
         async function EditPhone(phoneId, phoneName, phoneBrend, phonePrice) {
              
             $.ajax({
@@ -104,14 +102,12 @@
             })
         }
  
-        // сброс формы
         function reset() {
             var form = document.forms["phoneForm"];
             form.reset();
             form.elements["id"].value = 0;
         }
  
-        // Удаление пользователя
         function DeletePhone(id) {
             $.ajax({
                 url: "api/Phones/"+id,
@@ -122,21 +118,20 @@
                 }
             })
         }
-        // создание строки для таблицы
+        
         var row = function (phone) {
             return "<tr data-rowid='" + phone.id + "'><td>" + phone.id + "</td>" +
                    "<td>" + phone.name + "</td> <td>" + phone.brend + "</td> <td>" + phone.price + "</td>" +
                    "<td><a class='editLink btn btn-link' data-id='" + phone.id + "'>Edit</a> | " +
                     "<a class='removeLink btn btn-link' data-id='" + phone.id + "'>Delete</a></td></tr>";
         }
-        // сброс значений формы
+        
         $("#reset").click(function (e) {
  
             e.preventDefault();
             reset();
         })
  
-        // отправка формы
         $("form").submit(function (e) {
             e.preventDefault();
             var id = this.elements["id"].value;
@@ -149,18 +144,16 @@
                 EditPhone(id, name, brend, price);
         });
  
-        // нажимаем на ссылку Изменить
         $("body").on("click", ".editLink", function () {
             var id = $(this).data("id");
             GetPhone(id);
         })
-        // нажимаем на ссылку Удалить
+
         $("body").on("click", ".removeLink", function () {
             var id = $(this).data("id");
             DeletePhone(id);
         })
- 
-        // загрузка пользователей
+
         GetPhones();
  
     </script>
