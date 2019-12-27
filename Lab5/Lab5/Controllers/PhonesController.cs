@@ -51,7 +51,7 @@ namespace Lab5.Controllers
 
         // POST api/values
         [HttpPost]
-        public async Task<ActionResult<Phones>> Post(Phones phone)
+        public async Task<ActionResult<Phones>> Post([FromBody] Phones phone)
         {
             if (phone == null)
             {
@@ -66,7 +66,7 @@ namespace Lab5.Controllers
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public async Task<ActionResult<Phones>> Put(Phones phone)
+        public async Task<ActionResult<Phones>> Put([FromBody] Phones phone)
         {
             if (phone == null)
             {
